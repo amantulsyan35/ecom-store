@@ -1,0 +1,104 @@
+.Category {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 1em;
+  margin-bottom: 1em;
+  margin-right: 2em;
+  margin-left: 2em;
+}
+
+.Category-container1 {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1em;
+}
+
+.Category-type1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Bodoni Moda', serif;
+  background: url('https://i.ibb.co/cvpntL1/hats.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.7;
+  cursor: pointer;
+}
+/* .Category-type1:hover {
+  opacity: 1;
+} */
+.Category-type2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Bodoni Moda', serif;
+  background: url('https://i.ibb.co/px2tCc3/jackets.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.7;
+  cursor: pointer;
+}
+.Category-type3 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Bodoni Moda', serif;
+  background: url('https://i.ibb.co/0jqHpnp/sneakers.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.Category-container2 {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1em;
+}
+
+.Category-type4 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Bodoni Moda', serif;
+  background: url('https://i.ibb.co/GCCdy8t/womens.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.7;
+  cursor: pointer;
+}
+.Category-type5 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Bodoni Moda', serif;
+  background: url('https://i.ibb.co/R70vBrQ/men.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.Category-name {
+  padding: 1em;
+  background-color: black;
+}
+
+.Category-name a {
+  text-decoration: none;
+  color: white;
+}
+
+/* .Category-name:hover {
+  background-color: black;
+  color: white;
+  opacity: 1;
+} */
