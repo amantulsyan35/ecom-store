@@ -16,11 +16,6 @@ const App = () => {
     setUniCart([...uniCart, cart]);
   };
 
-  //Count duplicates of the same object in an array an then
-  //pass it as a prop to checkout page
-
-  // console.log(uniCart);
-
   return (
     <div className='App'>
       <Navbar />

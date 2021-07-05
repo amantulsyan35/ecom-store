@@ -3,14 +3,9 @@ import React, { useState } from 'react';
 import './Checkout.css';
 
 const Checkout = (props) => {
-  // let arr = [];
-  // for (let i = 0; i < props.cartDetails.length; i++) {
-  //   arr.push(props.cartDetails[i].name);
-  // }
+  const [checkout, setCheckout] = useState([]);
 
-  // console.log(arr);
-
-  // const [decQty, setDecQty] = useState(1);
+  const [qty, setQty] = useState(1);
 
   const obj = [
     ...new Map(
@@ -18,8 +13,10 @@ const Checkout = (props) => {
     ).values(),
   ];
 
-  const incQty = () => {
-    console.log('hi');
+  const incQty = (id, delta) => {
+    setCheckout(
+      obj.map((i) => (i.id === id ? { ...i, qty: i.qty + delta } : i))
+    );
   };
 
   return (
@@ -36,7 +33,7 @@ const Checkout = (props) => {
                 <i className='fas fa-chevron-left'></i>
               </span>
               <span>{c.qty}</span>
-              <span onClick={incQty}>
+              <span onClick={() => incQty(c.id, 1)}>
                 <i className='fas fa-chevron-right'></i>
               </span>
               <span className='Checkout-price'>{c.price}</span>

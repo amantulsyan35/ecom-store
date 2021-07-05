@@ -21,7 +21,16 @@ const CategoryPage = (props) => {
     };
     setCart([...cart, item]);
     props.handleCart(item);
+
+    const filter = cart.map((i) =>
+      i.id === id ? { ...i, qty: i.qty + 1 } : i
+    );
+    setCart(filter);
+
+    // console.log(filter);
   };
+
+  console.log(cart);
 
   return (
     <div className='Individual-category'>
@@ -45,10 +54,7 @@ const CategoryPage = (props) => {
                 </span>
               </div>
               <button
-                onClick={() =>
-                  // clickCount(i.id, i.name);
-                  addToCart(i.name, i.imageUrl, i.price, i.id)
-                }
+                onClick={() => addToCart(i.name, i.imageUrl, i.price, i.id)}
               >
                 ADD TO CART
               </button>
