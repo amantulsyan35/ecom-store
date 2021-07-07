@@ -43,25 +43,27 @@ const Checkout = ({ cartDetails }) => {
     <div className='Checkout'>
       <div className='Checkout-item-container'>
         {cart.map((c, idx) => {
-          return (
-            <div key={idx} className='Checkout-item'>
-              <div className='Checkout-image'>
-                <img alt={c.name} src={c.image} />
+          if (c.qty !== 0) {
+            return (
+              <div key={idx} className='Checkout-item'>
+                <div className='Checkout-image'>
+                  <img alt={c.name} src={c.image} />
+                </div>
+                <h3>{c.name}</h3>
+                <span onClick={() => decQty(c.id, -1, c.price)}>
+                  <i className='fas fa-chevron-left'></i>
+                </span>
+                <span>{c.qty}</span>
+                <span onClick={() => incQty(c.id, 1, c.price)}>
+                  <i className='fas fa-chevron-right'></i>
+                </span>
+                <span className='Checkout-price'>{c.price}</span>
+                <span onClick={() => delItem(c.id)}>
+                  <i className='fas fa-trash'></i>
+                </span>
               </div>
-              <h3>{c.name}</h3>
-              <span onClick={() => decQty(c.id, -1, c.price)}>
-                <i className='fas fa-chevron-left'></i>
-              </span>
-              <span>{c.qty}</span>
-              <span onClick={() => incQty(c.id, 1, c.price)}>
-                <i className='fas fa-chevron-right'></i>
-              </span>
-              <span className='Checkout-price'>{c.price}</span>
-              <span onClick={() => delItem(c.id)}>
-                <i className='fas fa-trash'></i>
-              </span>
-            </div>
-          );
+            );
+          }
         })}
       </div>
       {totalPrice !== 0 ? (
