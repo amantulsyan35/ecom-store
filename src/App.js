@@ -12,8 +12,8 @@ import SHOP_DATA from './shop.data';
 const App = () => {
   const [uniCart, setUniCart] = useState([]);
 
-  const addItem = (cart) => {
-    setUniCart([...uniCart, cart]);
+  const addItem = (cart, price) => {
+    setUniCart([...cart]);
   };
 
   return (

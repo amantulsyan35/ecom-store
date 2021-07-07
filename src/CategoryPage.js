@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './CategoryPage.css';
 
 const CategoryPage = (props) => {
   const [cart, setCart] = useState([]);
+  // const [op, setOp] = useState(0);
 
   let shopItems;
   for (let i = 0; i < props.shop_data.length; i++) {
@@ -12,25 +13,32 @@ const CategoryPage = (props) => {
   }
 
   const addToCart = (name, image, price, id) => {
-    const item = {
-      name: name,
-      image: image,
-      price: price,
-      id: id,
-      qty: 1,
-    };
-    setCart([...cart, item]);
-    props.handleCart(item);
+    let itemIndex = cart.findIndex((item) => item.id === id);
+    let tempCart = [];
+    let item = {};
 
-    const filter = cart.map((i) =>
-      i.id === id ? { ...i, qty: i.qty + 1 } : i
-    );
-    setCart(filter);
+    // setOp(price);
 
-    // console.log(filter);
+    if (itemIndex !== -1) {
+      item = cart[itemIndex];
+      item.qty += 1;
+      item.price += price;
+      cart.splice(itemIndex, 1);
+      tempCart = [...cart, item];
+    } else {
+      item = {
+        name: name,
+        image: image,
+        price: price,
+        id: id,
+        qty: 1,
+      };
+      tempCart = [...cart, item];
+    }
+
+    props.handleCart(tempCart);
+    setCart([...tempCart]);
   };
-
-  console.log(cart);
 
   return (
     <div className='Individual-category'>

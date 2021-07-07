@@ -2,48 +2,73 @@ import React, { useState } from 'react';
 
 import './Checkout.css';
 
-const Checkout = (props) => {
-  const [checkout, setCheckout] = useState([]);
+const Checkout = ({ cartDetails }) => {
+  const [cart, setCheckoutCart] = useState(cartDetails);
 
-  const [qty, setQty] = useState(1);
-
-  const obj = [
-    ...new Map(
-      props.cartDetails.map((item) => [JSON.stringify(item), item])
-    ).values(),
-  ];
-
-  const incQty = (id, delta) => {
-    setCheckout(
-      obj.map((i) => (i.id === id ? { ...i, qty: i.qty + delta } : i))
+  const incQty = (id, delta, price) => {
+    const filter = cart.map((i) =>
+      i.id === id
+        ? { ...i, qty: i.qty + delta, price: i.price + price / i.qty }
+        : i
     );
+    setCheckoutCart(filter);
   };
 
+  const decQty = (id, delta, price) => {
+    const filter = cart.map((i) =>
+      i.id === id
+        ? { ...i, qty: i.qty + delta, price: i.price - price / i.qty }
+        : i
+    );
+    setCheckoutCart(filter);
+  };
+
+  const delItem = (id) => {
+    const filter = cart.filter((item) => item.id !== id);
+    setCheckoutCart(filter);
+  };
+
+  let arr = [];
+  let totalPrice = 0;
+  for (let i = 0; i < cart.length; i++) {
+    arr.push(cart[i].price);
+  }
+
+  const reducer = (accumulator, currentValue) => accumulator + currentValue;
+
+  if (arr.length !== 0) {
+    totalPrice = arr.reduce(reducer);
+  }
   return (
     <div className='Checkout'>
       <div className='Checkout-item-container'>
-        {obj.map((c) => {
+        {cart.map((c, idx) => {
           return (
-            <div key={c.id} className='Checkout-item'>
+            <div key={idx} className='Checkout-item'>
               <div className='Checkout-image'>
                 <img alt={c.name} src={c.image} />
               </div>
               <h3>{c.name}</h3>
-              <span>
+              <span onClick={() => decQty(c.id, -1, c.price)}>
                 <i className='fas fa-chevron-left'></i>
               </span>
               <span>{c.qty}</span>
-              <span onClick={() => incQty(c.id, 1)}>
+              <span onClick={() => incQty(c.id, 1, c.price)}>
                 <i className='fas fa-chevron-right'></i>
               </span>
               <span className='Checkout-price'>{c.price}</span>
-              <span>
+              <span onClick={() => delItem(c.id)}>
                 <i className='fas fa-trash'></i>
               </span>
             </div>
           );
         })}
       </div>
+      {totalPrice !== 0 ? (
+        <h1 className='Checkout-total-price'>Total price: {totalPrice}</h1>
+      ) : (
+        <h1 className='Checkout-total-price'>Cart Empty :(</h1>
+      )}
     </div>
   );
 };
