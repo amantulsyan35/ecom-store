@@ -5,6 +5,7 @@ import './Checkout.css';
 const Checkout = ({ cartDetails }) => {
   const [cart, setCheckoutCart] = useState(cartDetails);
 
+  // increasing quantity
   const incQty = (id, delta, price) => {
     const filter = cart.map((i) =>
       i.id === id
