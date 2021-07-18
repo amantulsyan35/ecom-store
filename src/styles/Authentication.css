@@ -1,0 +1,55 @@
+.Authentication {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1em;
+}
+
+.Auth-signin {
+  border: 1px solid black;
+  margin-left: 2em;
+  margin-top: 3em;
+  margin-bottom: 3em;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: left;
+}
+
+.Auth-register {
+  border: 1px solid black;
+  margin-right: 2em;
+  margin-top: 3em;
+  margin-bottom: 3em;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: left;
+}
+
+/* Responsive css */
+
+@media (max-width: 576px) {
+  .Authentication {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1em;
+  }
+
+  .Auth-signin {
+    margin-left: 1em;
+    margin-top: 2em;
+    margin-right: 1em;
+    margin-bottom: 0;
+    height: auto;
+  }
+
+  .Auth-register {
+    margin-left: 1em;
+    margin-right: 1em;
+    margin-top: 0;
+    margin-bottom: 2em;
+    height: auto;
+  }
+}

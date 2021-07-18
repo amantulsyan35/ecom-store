@@ -1,0 +1,85 @@
+.Shop-heading {
+  font-family: 'Bodoni Moda', serif;
+}
+
+.Shop-container {
+  margin-bottom: 4em;
+  margin-left: 2em;
+  margin-right: 2em;
+}
+
+.Shop-container h3 {
+  margin-bottom: 2em;
+  font-family: 'Bodoni Moda', serif;
+  text-transform: uppercase;
+}
+
+.Shop-item-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 1em;
+}
+
+.Shop-items {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 25em;
+}
+
+.Shop-items-details {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.7;
+  font-weight: 400;
+  width: 100%;
+  cursor: pointer;
+}
+
+.Shop-items button {
+  outline: none;
+  color: white;
+  background-color: black;
+  border: none;
+  padding: 1em;
+  width: 10em;
+  opacity: 0;
+}
+
+.Shop-items button:hover {
+  opacity: 1;
+}
+
+/* Responsive css */
+
+@media (max-width: 576px) {
+  .Shop-container {
+    margin-bottom: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
+  }
+
+  .Shop-container h3 {
+    margin-bottom: 1em;
+  }
+
+  .Shop-item-container {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0.5em;
+  }
+
+  .Shop-items {
+    height: 15em;
+  }
+
+  .Shop-items-details {
+    opacity: 0.7;
+  }
+
+  .Shop-items button {
+    opacity: 1;
+  }
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './CategoryContainer.css';
+import './styles/CategoryContainer.css';
 
 import { Link } from 'react-router-dom';
 

@@ -18,8 +18,6 @@
 }
 
 .Navbar-logo {
-  /* display: flex;
-  justify-content: flex-end; */
   margin-right: auto;
   margin-top: 3em;
   margin-left: 2em;
@@ -27,4 +25,29 @@
 
 .Navbar-logo a {
   font-size: 3em;
+}
+
+/* Responsive css */
+
+@media (max-width: 576px) {
+  .Navbar {
+    margin-bottom: 2em;
+    height: 2em;
+  }
+
+  .Navbar a {
+    margin-right: 1em;
+    margin-top: 2em;
+    letter-spacing: 0;
+    font-size: 1em;
+  }
+
+  .Navbar-logo {
+    margin-top: 2em;
+    margin-left: 1em;
+  }
+
+  .Navbar-logo a {
+    font-size: 2em;
+  }
 }

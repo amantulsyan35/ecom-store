@@ -1,10 +1,12 @@
-import React, { useState, useRef } from 'react';
-import './CategoryPage.css';
+import React from 'react';
+
+import { connect } from 'react-redux';
+import { addItem } from './redux/cart/cart.actions';
+
+import './styles/CategoryPage.css';
 
 const CategoryPage = (props) => {
-  const [cart, setCart] = useState([]);
-  // const [op, setOp] = useState(0);
-
+  // mapping cart for the page
   let shopItems;
   for (let i = 0; i < props.shop_data.length; i++) {
     if (props.shop_data[i].routeName === props.match.params.name) {
@@ -12,32 +14,16 @@ const CategoryPage = (props) => {
     }
   }
 
-  const addToCart = (name, image, price, id) => {
-    let itemIndex = cart.findIndex((item) => item.id === id);
-    let tempCart = [];
-    let item = {};
-
-    // setOp(price);
-
-    if (itemIndex !== -1) {
-      item = cart[itemIndex];
-      item.qty += 1;
-      item.price += price;
-      cart.splice(itemIndex, 1);
-      tempCart = [...cart, item];
-    } else {
-      item = {
-        name: name,
-        image: image,
-        price: price,
-        id: id,
-        qty: 1,
-      };
-      tempCart = [...cart, item];
-    }
-
-    props.handleCart(tempCart);
-    setCart([...tempCart]);
+  //sending item to global cart
+  const handleItem = (name, image, price, id) => {
+    const item = {
+      name: name,
+      image: image,
+      price: price,
+      id: id,
+    };
+    props.addItem(item);
+    alert('Item Added');
   };
 
   return (
@@ -62,7 +48,7 @@ const CategoryPage = (props) => {
                 </span>
               </div>
               <button
-                onClick={() => addToCart(i.name, i.imageUrl, i.price, i.id)}
+                onClick={() => handleItem(i.name, i.imageUrl, i.price, i.id)}
               >
                 ADD TO CART
               </button>
@@ -74,4 +60,8 @@ const CategoryPage = (props) => {
   );
 };
 
-export default CategoryPage;
+const matchDispatchToProps = (dispatch) => ({
+  addItem: (item) => dispatch(addItem(item)),
+});
+
+export default connect(null, matchDispatchToProps)(CategoryPage);

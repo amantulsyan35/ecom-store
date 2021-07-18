@@ -7,7 +7,6 @@
   display: grid;
   grid-template-rows: 1fr;
   grid-gap: 1em;
-
   margin-top: 3em;
   margin-bottom: 1em;
 }
@@ -35,13 +34,11 @@
 }
 
 .Checkout-item h3 {
-  /* margin-right: 4em; */
   font-family: 'Montserrat', sans-serif;
   font-weight: 100;
 }
 
 .Checkout-price {
-  /* margin-right: 4em; */
   font-size: 1.5em;
   font-family: 'Montserrat', sans-serif;
 }
@@ -52,7 +49,6 @@
 
 .fa-chevron-right {
   font-size: 1em;
-  /* margin-right: 2em; */
 }
 
 .fa-trash {
@@ -62,4 +58,39 @@
 
 .Checkout-total-price {
   font-family: 'Montserrat', sans-serif;
+}
+
+/* Responsive css */
+
+@media (max-width: 576px) {
+  .Checkout {
+    margin-bottom: 1em;
+  }
+
+  .Checkout-item-container {
+    margin-top: 5em;
+    margin-bottom: 1em;
+  }
+
+  .Checkout-item {
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  .Checkout-image {
+    margin-left: 0.5em;
+  }
+
+  .Checkout-image img {
+    width: 5em;
+    height: 5em;
+  }
+
+  .Checkout-price {
+    display: none;
+  }
+
+  .fa-trash {
+    margin-right: 0;
+  }
 }

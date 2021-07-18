@@ -1,38 +1,31 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import './Checkout.css';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
-const Checkout = ({ cartDetails }) => {
-  const [cart, setCheckoutCart] = useState(cartDetails);
+import './styles/Checkout.css';
 
-  // increasing quantity
-  const incQty = (id, delta, price) => {
-    const filter = cart.map((i) =>
-      i.id === id
-        ? { ...i, qty: i.qty + delta, price: i.price + price / i.qty }
-        : i
-    );
-    setCheckoutCart(filter);
-  };
+import { selectCurrentUser } from './redux/users/user.selectors';
+import { selectCartItems } from './redux/cart/cart.selectors';
+import {
+  increaseQuantity,
+  decreaseQuantity,
+  clearItemFromCart,
+} from './redux/cart/cart.actions';
 
-  const decQty = (id, delta, price) => {
-    const filter = cart.map((i) =>
-      i.id === id
-        ? { ...i, qty: i.qty + delta, price: i.price - price / i.qty }
-        : i
-    );
-    setCheckoutCart(filter);
-  };
-
-  const delItem = (id) => {
-    const filter = cart.filter((item) => item.id !== id);
-    setCheckoutCart(filter);
-  };
+const Checkout = ({
+  currentUser,
+  cartItems,
+  clearItemFromCart,
+  increaseQuantity,
+  decreaseQuantity,
+}) => {
+  // calculating total price
 
   let arr = [];
   let totalPrice = 0;
-  for (let i = 0; i < cart.length; i++) {
-    arr.push(cart[i].price);
+  for (let i = 0; i < cartItems.length; i++) {
+    arr.push(cartItems[i].price);
   }
 
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
@@ -40,40 +33,60 @@ const Checkout = ({ cartDetails }) => {
   if (arr.length !== 0) {
     totalPrice = arr.reduce(reducer);
   }
-  return (
-    <div className='Checkout'>
-      <div className='Checkout-item-container'>
-        {cart.map((c, idx) => {
-          if (c.qty !== 0) {
-            return (
-              <div key={idx} className='Checkout-item'>
-                <div className='Checkout-image'>
-                  <img alt={c.name} src={c.image} />
+
+  if (currentUser !== null) {
+    return (
+      <div className='Checkout'>
+        <div className='Checkout-item-container'>
+          {cartItems.map((c, idx) => {
+            if (c.qty !== 0) {
+              return (
+                <div key={idx} className='Checkout-item'>
+                  <div className='Checkout-image'>
+                    <img alt={c.name} src={c.image} />
+                  </div>
+                  <h3>{c.name}</h3>
+                  <span onClick={() => decreaseQuantity(c.id)}>
+                    <i className='fas fa-chevron-left'></i>
+                  </span>
+                  <span>{c.qty}</span>
+                  <span onClick={() => increaseQuantity(c.id)}>
+                    <i className='fas fa-chevron-right'></i>
+                  </span>
+                  <span className='Checkout-price'>{c.price}</span>
+                  <span onClick={() => clearItemFromCart(c.id)}>
+                    <i className='fas fa-trash'></i>
+                  </span>
                 </div>
-                <h3>{c.name}</h3>
-                <span onClick={() => decQty(c.id, -1, c.price)}>
-                  <i className='fas fa-chevron-left'></i>
-                </span>
-                <span>{c.qty}</span>
-                <span onClick={() => incQty(c.id, 1, c.price)}>
-                  <i className='fas fa-chevron-right'></i>
-                </span>
-                <span className='Checkout-price'>{c.price}</span>
-                <span onClick={() => delItem(c.id)}>
-                  <i className='fas fa-trash'></i>
-                </span>
-              </div>
-            );
-          }
-        })}
+              );
+            } else {
+              return null;
+            }
+          })}
+        </div>
+        {totalPrice !== 0 ? (
+          <h1 className='Checkout-total-price'>Total price: {totalPrice}</h1>
+        ) : (
+          <h1 className='Checkout-total-price'>Cart Empty :(</h1>
+        )}
       </div>
-      {totalPrice !== 0 ? (
-        <h1 className='Checkout-total-price'>Total price: {totalPrice}</h1>
-      ) : (
-        <h1 className='Checkout-total-price'>Cart Empty :(</h1>
-      )}
-    </div>
-  );
+    );
+  } else {
+    return (
+      <h1 className='Checkout-total-price'>You Need To Sign-In First :(</h1>
+    );
+  }
 };
 
-export default Checkout;
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  cartItems: selectCartItems,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  clearItemFromCart: (item) => dispatch(clearItemFromCart(item)),
+  increaseQuantity: (item) => dispatch(increaseQuantity(item)),
+  decreaseQuantity: (item) => dispatch(decreaseQuantity(item)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

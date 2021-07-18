@@ -45,10 +45,29 @@
   cursor: pointer;
 }
 
-/* .Category-details:hover {
-  opacity: 0.7;
-} */
-
 .Category-details h4 {
   margin-right: 0.5em;
+}
+
+/* Responsive css */
+
+@media (max-width: 576px) {
+  .Individual-category-container {
+    grid-template-columns: 1fr 1fr;
+    margin-left: 1em;
+    margin-right: 1em;
+  }
+
+  .Category-item button {
+    width: 100%;
+    opacity: 1;
+  }
+
+  .Category-details {
+    opacity: 0;
+  }
+
+  .Category-details:hover {
+    opacity: 0.7;
+  }
 }
